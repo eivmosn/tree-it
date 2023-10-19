@@ -15,6 +15,13 @@ export class Treeit {
     this._treeNode = this.recursionTree(option.target)
   }
 
+  /**
+   * set value
+   * @param field
+   * @param value
+   * @param insert
+   * @returns
+   */
   set(field: string, value: string | number | boolean, insert = false) {
     const cloneTraget = [...this._target]
     this.recursionTree(cloneTraget, [], (node) => {
@@ -29,10 +36,20 @@ export class Treeit {
     return cloneTraget
   }
 
+  /**
+   * get flatten tree array
+   * @returns
+   */
   flat() {
     return this._treeNode
   }
 
+  /**
+   * get object form tree
+   * @param field
+   * @param value
+   * @returns
+   */
   get(field: string, value: string | number | boolean) {
     return this._treeNode.find(node => node[field] === value)
   }
