@@ -1,15 +1,15 @@
-type TreeitNode = Record<string, any>
+type TreeNode = Record<string, any>
 
-interface TreeitOption {
-  target: TreeitNode[]
+interface TreeLitOption {
+  target: TreeNode[]
   childrenField?: string | string[]
 }
 
 export class Treeit {
-  _target: TreeitNode[]
-  _treeNode: TreeitNode[]
+  _target: TreeNode[]
+  _treeNode: TreeNode[]
   _childrenField: string | string[]
-  constructor(option: TreeitOption) {
+  constructor(option: TreeLitOption) {
     this._target = option.target
     this._childrenField = option.childrenField || 'children'
     this._treeNode = this.recursionTree(option.target)
@@ -20,7 +20,6 @@ export class Treeit {
    * @param field
    * @param value
    * @param insert
-   * @returns
    */
   set(field: string, value: string | number | boolean, insert = false) {
     const cloneTraget = [...this._target]
@@ -38,7 +37,6 @@ export class Treeit {
 
   /**
    * get flatten tree array
-   * @returns
    */
   flat() {
     return this._treeNode
@@ -48,13 +46,12 @@ export class Treeit {
    * get object form tree
    * @param field
    * @param value
-   * @returns
    */
   get(field: string, value: string | number | boolean) {
     return this._treeNode.find(node => node[field] === value)
   }
 
-  recursionTree(tree: TreeitNode[], result: TreeitNode[] = [], callbackfn?: (node: TreeitNode) => void) {
+  recursionTree(tree: TreeNode[], result: TreeNode[] = [], callbackfn?: (node: TreeNode) => void) {
     for (const node of tree) {
       callbackfn && callbackfn(node)
       result.push(node)
