@@ -45,3 +45,11 @@ export function toNumber(val: unknown) {
 export function hasOwn(val: MaybeObject, key: string) {
   return Object.hasOwn(val, key)
 }
+
+export function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+export function hyphenate(str: string) {
+  return str.replace(/\B([A-Z])/g, '-$1').toLowerCase()
+}
