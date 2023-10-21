@@ -1,7 +1,7 @@
 {
   "name": "@eivmosn/utils",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "packageManager": "pnpm@8.8.0",
   "description": "Common util collections for javascript/typescript",
   "author": "eivmosn <eivmosn@163.com>",
@@ -38,7 +38,7 @@
     "build": "unbuild",
     "dev": "unbuild --stub",
     "lint": "eslint .",
-    "release": "bumpp && npm publish",
+    "release": "bumpp && npm publish --access=public",
     "start": "esno src/index.ts",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
