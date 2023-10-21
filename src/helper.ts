@@ -21,3 +21,27 @@ export function isBoolean(val: unknown): val is boolean {
 export function isObject(val: unknown): val is MaybeObject {
   return toTypeString(val) === '[object Object]'
 }
+
+export function isEmpty(val: unknown): boolean {
+  if (val === null || val === undefined)
+    return true
+  if (isArray(val) || isString(val))
+    return val.length === 0
+  if (isObject(val))
+    return Object.keys(val).length === 0
+  return false
+}
+
+export function toString(val: unknown): string {
+  if (isArray(val) || isObject(val))
+    return JSON.stringify(val)
+  return String(val)
+}
+
+export function toNumber(val: unknown) {
+  return Number(val)
+}
+
+export function hasOwn(val: MaybeObject, key: string) {
+  return Object.hasOwn(val, key)
+}
