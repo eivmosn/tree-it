@@ -1,16 +1,16 @@
 {
   "name": "@eivmosn/utils",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packageManager": "pnpm@8.8.0",
-  "description": "Javascript tree structure tools",
+  "description": "Common util collections for javascript/typescript",
   "author": "eivmosn <eivmosn@163.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eivmosn/tree-it.git"
+    "url": "git+https://github.com/eivmosn/utils.git"
   },
-  "bugs": "https://github.com/eivmosn/tree-it/issues",
+  "bugs": "https://github.com/eivmosn/utils/issues",
   "keywords": [],
   "sideEffects": false,
   "exports": {
