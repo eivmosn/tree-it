@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.4",
   "packageManager": "pnpm@8.8.0",
-  "description": "Common util collections for javascript/typescript",
+  "description": "Common util collections for javascript and typescript",
   "author": "eivmosn <eivmosn@163.com>",
   "license": "MIT",
   "repository": {
@@ -38,9 +38,10 @@
     "build": "unbuild",
     "dev": "unbuild --stub",
     "lint": "eslint .",
-    "release": "bumpp && npm publish",
+    "release": "bumpp && pnpm publish",
     "start": "esno src/index.ts",
     "test": "vitest",
+    "prepublishOnly": "nr build",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks",
     "up": "taze major -I"
