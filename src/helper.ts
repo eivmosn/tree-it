@@ -1,4 +1,4 @@
-import type { MaybeObject } from './type'
+import type { MaybeArray, MaybeObject } from './type'
 
 export const isArray = Array.isArray
 
@@ -56,4 +56,12 @@ export function hyphenate(str: string) {
 
 export function isSame(val: any, other: any) {
   return Object.is(val, other)
+}
+
+export function objectKeys<T extends object>(obj: T) {
+  return Object.keys(obj) as Array<`${keyof T & (string | number | boolean | null | undefined)}`>
+}
+
+export function compact(val: MaybeArray) {
+  return val.filter(item => item !== null && item !== undefined && item !== '' && !Number.isNaN(item))
 }
