@@ -65,3 +65,29 @@ export function objectKeys<T extends object>(obj: T) {
 export function compact(val: MaybeArray) {
   return val.filter(item => item !== null && item !== undefined && item !== '' && !Number.isNaN(item))
 }
+
+export function compile(code: string) {
+  code = `with (sandbox) { ${code} }`
+  const fn = new Function('sandbox', code)
+  return (sandbox: MaybeObject) => {
+    const proxy = new Proxy(sandbox, {
+      has() {
+        return true
+      },
+      get(target, key, receiver) {
+        if (key === Symbol.unscopables)
+          return undefined
+        return Reflect.get(target, key, receiver)
+      },
+    })
+    return fn(proxy)
+  }
+}
+
+export function createScript(code: string, sandbox: MaybeObject = {}) {
+  const excute = compile(code)
+  return excute({
+    ...sandbox,
+    console,
+  })
+}
