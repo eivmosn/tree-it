@@ -46,6 +46,10 @@
     "prepare": "simple-git-hooks",
     "up": "taze major -I"
   },
+  "dependencies": {
+    "@types/throttle-debounce": "^5.0.1",
+    "throttle-debounce": "^5.0.0"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "1.0.0-beta.27",
     "@types/node": "^20.8.7",
