@@ -91,3 +91,24 @@ export function createScript(code: string, sandbox: MaybeObject = {}) {
     console,
   })
 }
+
+export function get(object: object, path: string, defaultValue = undefined) {
+  const paths = path.split('.')
+  return paths.reduce((result, key) => {
+    if (result && isObject(result) && hasOwn(result, key))
+      return result[key]
+    else
+      return defaultValue
+  }, object)
+}
+
+export function set(object: MaybeObject, path: string, value: any): void {
+  const paths = path.split('.')
+  for (let i = 0, length = paths.length; i < length - 1; i++) {
+    const key = paths[i]
+    if (!object[key] || !isObject(object[key]))
+      object[key] = {}
+    object = object[key]
+  }
+  object[paths[paths.length - 1]] = value
+}
