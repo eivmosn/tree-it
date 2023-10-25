@@ -1,7 +1,7 @@
 {
   "name": "@eivmosn/utils",
   "type": "module",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "packageManager": "pnpm@8.8.0",
   "description": "Common util collections for javascript and typescript",
   "author": "eivmosn <eivmosn@163.com>",
