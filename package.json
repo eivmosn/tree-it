@@ -47,12 +47,12 @@
     "up": "taze major -I"
   },
   "dependencies": {
-    "@types/throttle-debounce": "^5.0.1",
     "throttle-debounce": "^5.0.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "1.0.0-beta.27",
     "@types/node": "^20.8.7",
+    "@types/throttle-debounce": "^5.0.1",
     "bumpp": "^9.2.0",
     "eslint": "^8.51.0",
     "esno": "^0.17.0",
