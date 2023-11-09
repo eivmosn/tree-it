@@ -88,7 +88,10 @@ export function createScript(code: string, sandbox: MaybeObject = {}) {
   const excute = compile(code)
   return excute({
     ...sandbox,
+    JSON,
     console,
+    Object,
+    Array,
   })
 }
 
