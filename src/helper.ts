@@ -1,4 +1,4 @@
-import type { MaybeArray, MaybeObject } from './type'
+import type { LooseArray, LooseObject } from './type'
 
 export const isArray = Array.isArray
 
@@ -18,7 +18,7 @@ export function isBoolean(val: unknown): val is boolean {
   return toTypeString(val) === '[object Boolean]'
 }
 
-export function isObject(val: unknown): val is MaybeObject {
+export function isObject(val: unknown): val is object {
   return toTypeString(val) === '[object Object]'
 }
 
@@ -42,7 +42,7 @@ export function toNumber(val: unknown) {
   return Number(val)
 }
 
-export function hasOwn(val: MaybeObject, key: string) {
+export function hasOwn(val: LooseObject, key: string) {
   return Object.hasOwn(val, key)
 }
 
@@ -62,14 +62,14 @@ export function objectKeys<T extends object>(obj: T) {
   return Object.keys(obj) as Array<`${keyof T & (string | number | boolean | null | undefined)}`>
 }
 
-export function compact(val: MaybeArray) {
+export function compact(val: LooseArray) {
   return val.filter(item => item !== null && item !== undefined && item !== '' && !Number.isNaN(item))
 }
 
 export function compile(code: string) {
   code = `with (sandbox) { ${code} }`
   const fn = new Function('sandbox', code)
-  return (sandbox: MaybeObject) => {
+  return (sandbox: LooseObject) => {
     const proxy = new Proxy(sandbox, {
       has() {
         return true
@@ -84,7 +84,7 @@ export function compile(code: string) {
   }
 }
 
-export function createScript(code: string, sandbox: MaybeObject = {}) {
+export function createScript(code: string, sandbox: LooseObject = {}) {
   const excute = compile(code)
   return excute({
     ...sandbox,
@@ -95,7 +95,7 @@ export function createScript(code: string, sandbox: MaybeObject = {}) {
   })
 }
 
-export function get(object: object, path: string, defaultValue = undefined) {
+export function get(object: LooseObject, path: string, defaultValue = undefined) {
   const paths = path.split('.')
   return paths.reduce((result, key) => {
     if (result && isObject(result) && hasOwn(result, key))
@@ -105,7 +105,7 @@ export function get(object: object, path: string, defaultValue = undefined) {
   }, object)
 }
 
-export function set(object: MaybeObject, path: string, value: any): void {
+export function set(object: LooseObject, path: string, value: any): void {
   const paths = path.split('.')
   for (let i = 0, length = paths.length; i < length - 1; i++) {
     const key = paths[i]

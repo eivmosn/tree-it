@@ -9,3 +9,7 @@ export type Nullable<T> = T | null | undefined
 export type Many<T> = T | ReadonlyArray<T>
 
 export type Loose = any
+
+export type LooseObject = Record<any, any>
+
+export type LooseArray = any[]
