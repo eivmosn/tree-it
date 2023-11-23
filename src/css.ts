@@ -1,16 +1,16 @@
-import type { MaybeObject } from './type'
 import { hyphenate } from './helper'
+import type { LooseMap } from './type'
 
-export function toString(style: MaybeObject) {
+export function toString(style: CSSStyleDeclaration) {
   return Object.entries(style).map(([k, v]) => `${hyphenate(k)}:${v}`).join(';')
 }
 
 export function fromString(style: string) {
-  return style.split(';').reduce((acc, cur) => {
+  return style.split(';').reduce<LooseMap<string>>((acc, cur) => {
     const [k, v] = cur.split(':')
     acc[k] = v
     return acc
-  }, {} as MaybeObject)
+  }, {})
 }
 
 export function hexToRgb(hex: string) {

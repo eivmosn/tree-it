@@ -13,3 +13,7 @@ export type Loose = any
 export type LooseObject = Record<any, any>
 
 export type LooseArray = any[]
+
+export interface LooseMap<T> {
+  [key: string]: T
+}
