@@ -14,6 +14,12 @@ export function isString(val: unknown): val is string {
   return toTypeString(val) === '[object String]'
 }
 
+export function isStringNumber(val: string): boolean {
+  if (!isString(val))
+    return false
+  return !Number.isNaN(Number(val))
+}
+
 export function isBoolean(val: unknown): val is boolean {
   return toTypeString(val) === '[object Boolean]'
 }

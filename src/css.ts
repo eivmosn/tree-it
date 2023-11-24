@@ -1,4 +1,4 @@
-import { hyphenate } from './helper'
+import { hyphenate, isNumber, isString, isStringNumber } from './helper'
 import type { LooseMap } from './type'
 
 export function toString(style: CSSStyleDeclaration) {
@@ -19,4 +19,16 @@ export function hexToRgb(hex: string) {
   const g = Number.parseInt(hex.substring(2, 4), 16)
   const b = Number.parseInt(hex.substring(4, 6), 16)
   return `rgb(${r}, ${g}, ${b})`
+}
+
+export function setStyle(element: HTMLElement, styles: Partial<CSSStyleDeclaration>) {
+  for (const [key, value] of Object.entries(styles))
+    element.style.setProperty(key, value as string)
+}
+
+export function withUnit(value: number | string, unit = 'px') {
+  if (isNumber(value) || isStringNumber(value))
+    return `${value}${unit}`
+  else if (isString(value))
+    return value
 }
