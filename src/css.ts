@@ -23,7 +23,7 @@ export function hexToRgb(hex: string) {
 
 export function setStyle(element: HTMLElement, styles: Partial<CSSStyleDeclaration>) {
   for (const [key, value] of Object.entries(styles))
-    element.style.setProperty(key, value as string)
+    element.style.setProperty(hyphenate(key), value as string)
 }
 
 export function withUnit(value: number | string, unit = 'px') {

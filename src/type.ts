@@ -17,3 +17,7 @@ export type LooseArray = any[]
 export interface LooseMap<T> {
   [key: string]: T
 }
+
+export type DeepPartial<T> = T extends object ? {
+  [P in keyof T]?: DeepPartial<T[P]>
+} : T
