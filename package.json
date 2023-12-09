@@ -35,7 +35,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "dev": "unbuild --stub",
     "lint": "eslint .",
     "release": "bumpp && pnpm publish",

@@ -1,8 +1,9 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import { dts } from 'rollup-plugin-dts'
+import { defineConfig } from 'rollup'
 
-export default [
+export default defineConfig([
   {
     input: 'src/index.ts',
     plugins: [
@@ -26,4 +27,4 @@ export default [
       }),
     ],
   },
-]
+])
