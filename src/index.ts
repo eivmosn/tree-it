@@ -28,3 +28,11 @@ export function createScript(code: string, sandbox: any = {}) {
     Array,
   })
 }
+
+export function fromString(style: string) {
+  return style.split(';').reduce<any>((acc, cur) => {
+    const [k, v] = cur.split(':')
+    acc[k] = v
+    return acc
+  }, {})
+}
