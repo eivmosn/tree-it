@@ -26,6 +26,8 @@ export function createScript(code: string, sandbox: any = {}) {
     console,
     Object,
     Array,
+    Promise,
+    FormData,
   })
 }
 
