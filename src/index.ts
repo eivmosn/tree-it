@@ -1,5 +1,9 @@
 export * from './type'
 
+function _splitKeys(path: string) {
+  return path.replace(/\[(\d+)\]/g, '.$1').split('.')
+}
+
 export function compile(code: string) {
   code = `with (sandbox) { ${code} }`
   const fn = new Function('sandbox', code)
@@ -52,9 +56,27 @@ export function blobToBase64(blob: Blob) {
 }
 
 export function get<T>(source: T, path: string, defaultValue = undefined) {
-  const keyList = path.replace(/\[(\d+)\]/g, '.$1').split('.')
-  const result = keyList.reduce((obj: T, key: string | number) => {
+  const keys = _splitKeys(path)
+  const result = keys.reduce((obj: T, key: string | number) => {
     return Object(obj)[key]
   }, source)
   return result === undefined ? defaultValue : result
+}
+
+export function set<T>(source: T, path: string, value: any): T {
+  const keys = _splitKeys(path)
+  const lastKey = keys.pop()
+
+  if (!lastKey)
+    return source
+
+  const target = keys.reduce((obj: any, key: string | number) => {
+    if (!obj[key])
+      obj[key] = {}
+    return obj[key]
+  }, source)
+
+  target[lastKey] = value
+
+  return source
 }
