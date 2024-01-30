@@ -9,7 +9,6 @@ export default antfu(
   },
   {
     rules: {
-      // overrides
       'no-new-func': 'off',
     },
   },

@@ -50,3 +50,11 @@ export function blobToBase64(blob: Blob) {
     reader.onerror = error => reject(error)
   })
 }
+
+export function get<T>(source: T, path: string, defaultValue = undefined) {
+  const keyList = path.replace(/\[(\d+)\]/g, '.$1').split('.')
+  const result = keyList.reduce((obj: T, key: string | number) => {
+    return Object(obj)[key]
+  }, source)
+  return result === undefined ? defaultValue : result
+}
