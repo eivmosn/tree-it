@@ -1,40 +1,9 @@
 export * from './type'
 
-export function compile(code: string) {
-  code = `with (sandbox) { ${code} }`
-  const fn = new Function('sandbox', code)
-  return (sandbox: any) => {
-    const proxy = new Proxy(sandbox, {
-      has() {
-        return true
-      },
-      get(target, key, receiver) {
-        if (key === Symbol.unscopables)
-          return undefined
-        return Reflect.get(target, key, receiver)
-      },
-    })
-    return fn(proxy)
-  }
-}
-
-export function createScript(code: string, sandbox = {}) {
-  const excute = compile(code)
-  return excute({
-    ...sandbox,
-    JSON,
-    console,
-    Object,
-    Array,
-    Promise,
-    FormData,
-  })
-}
-
-export function blobToBase64(blob: Blob) {
+export function blobToBase64(file: File | Blob) {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader()
-    reader.readAsDataURL(blob)
+    reader.readAsDataURL(file)
     reader.onload = () => {
       const base64 = reader.result as string
       resolve(base64)
@@ -54,4 +23,15 @@ export function get<T extends object>(source: T, path: string, defaultValue = un
 export function getUrlParams(url: string) {
   const search = new URL(url).search
   return Object.fromEntries(new URLSearchParams(search))
+}
+
+export function base64ToFile(base64String: string, fileName: string) {
+  const binaryData = atob(base64String)
+  const arrayBuffer = new ArrayBuffer(binaryData.length)
+  const uint8Array = new Uint8Array(arrayBuffer)
+  for (let i = 0; i < binaryData.length; i++)
+    uint8Array[i] = binaryData.charCodeAt(i)
+  const blob = new Blob([uint8Array], { type: 'application/octet-stream' })
+  const file = new File([blob], fileName, { type: 'application/octet-stream' })
+  return file
 }
