@@ -24,14 +24,3 @@ export function getUrlParams(url: string) {
   const search = new URL(url).search
   return Object.fromEntries(new URLSearchParams(search))
 }
-
-export function base64ToFile(base64String: string, fileName: string) {
-  const binaryData = atob(base64String)
-  const arrayBuffer = new ArrayBuffer(binaryData.length)
-  const uint8Array = new Uint8Array(arrayBuffer)
-  for (let i = 0; i < binaryData.length; i++)
-    uint8Array[i] = binaryData.charCodeAt(i)
-  const blob = new Blob([uint8Array], { type: 'application/octet-stream' })
-  const file = new File([blob], fileName, { type: 'application/octet-stream' })
-  return file
-}
