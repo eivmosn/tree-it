@@ -2,7 +2,6 @@
   "name": "@eivmosn/utils",
   "type": "module",
   "version": "1.0.6",
-  "packageManager": "pnpm@8.8.0",
   "description": "Common util collections for javascript and typescript",
   "author": "eivmosn <eivmosn@163.com>",
   "license": "MIT",
@@ -35,35 +34,17 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup --config rollup.config.ts --configPlugin typescript",
-    "dev": "unbuild --stub",
-    "lint": "eslint .",
-    "release": "bumpp && pnpm publish",
-    "start": "esno src/index.ts",
-    "test": "vitest",
-    "prepublishOnly": "nr build",
-    "typecheck": "tsc --noEmit",
-    "prepare": "simple-git-hooks",
-    "up": "taze major"
-  },
-  "dependencies": {
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@vue/shared": "^3.4.21",
-    "rollup": "^4.12.0",
-    "rollup-plugin-dts": "^6.1.0",
-    "tslib": "^2.6.2"
+    "build": "unbuild",
+    "test": "vitest"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "2.4.3",
-    "@types/node": "^20.11.24",
-    "bumpp": "^9.3.0",
+    "@antfu/eslint-config": "^2.16.0",
     "eslint": "^8.57.0",
     "lint-staged": "^15.2.2",
-    "pnpm": "^8.15.4",
-    "simple-git-hooks": "^2.10.0",
-    "typescript": "^5.3.3",
-    "vite": "^5.1.4"
+    "simple-git-hooks": "^2.11.1",
+    "typescript": "^5.4.5",
+    "unbuild": "^2.0.0",
+    "vitest": "^1.5.2"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
