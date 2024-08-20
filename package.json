@@ -34,22 +34,31 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
-    "test": "vitest"
+    "test": "vitest",
+    "build": "tsup",
+    "postinstall": "npx simple-git-hooks",
+    "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.16.0",
-    "eslint": "^8.57.0",
-    "lint-staged": "^15.2.2",
+    "@antfu/eslint-config": "^2.26.0",
+    "eslint": "^9.9.0",
+    "nano-staged": "^0.8.0",
     "simple-git-hooks": "^2.11.1",
-    "typescript": "^5.4.5",
-    "unbuild": "^2.0.0",
-    "vitest": "^1.5.2"
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowAny": [
+        "eslint"
+      ]
+    }
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
+    "pre-commit": "./node_modules/.bin/nano-staged"
   },
-  "lint-staged": {
-    "*": "eslint --fix"
+  "nano-staged": {
+    "*.ts": "eslint --fix"
   }
 }
