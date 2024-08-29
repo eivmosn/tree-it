@@ -17,3 +17,142 @@ export function set<T extends object>(source: T, path: string, value: any) {
   if (lastKey)
     target[lastKey as keyof T] = value
 }
+
+export function toBoolean(value?: string | boolean | number | null | undefined) {
+  if (typeof value === 'string') {
+    return value.toLowerCase() === 'true'
+  }
+  return !!value
+}
+
+export function uniqueId() {
+  return Math.random().toString(36).slice(2)
+}
+
+/**
+ * Get the type of a value as a string
+ * @param val
+ */
+export function toTypeString(val: unknown): string {
+  return Object.prototype.toString.call(val).slice(8, -1)
+}
+
+/**
+ * Check if a value is an empty value
+ *
+ * An empty value is either `undefined`, `null`, `''`, `[]`, or `{}`
+ * @param val
+ */
+export function isEmptyValue<T>(val: T) {
+  if (Array.isArray(val)) {
+    return val.length === 0
+  }
+  if (toTypeString(val) === 'Object') {
+    return Object.keys(val as object).length === 0
+  }
+  if (typeof val === 'function') {
+    return false
+  }
+  return val === undefined || val === null || val === ''
+}
+
+interface TreeNode<T> {
+  [key: string]: any
+  children?: TreeNode<T>[]
+}
+
+export function toTree<T>(arr: T[], options: {
+  key: string
+  parent: string
+  children: string
+}): TreeNode<T>[] {
+  const { key, parent, children } = options
+
+  const map = new Map()
+
+  arr.forEach(item => map.set(item[key as keyof T], { ...item, [children]: [] }))
+
+  const tree: TreeNode<T>[] = []
+
+  arr.forEach((item) => {
+    const _key = item[key as keyof T]
+    const parentKey = item[parent as keyof T]
+
+    if (isEmptyValue(parentKey)) {
+      tree.push(map.get(_key))
+    }
+    else {
+      const parent = map.get(parentKey)
+      if (parent) {
+        (parent[children]).push(map.get(_key))
+      }
+    }
+  })
+
+  return tree
+}
+
+export function flattenList<T>(tree: TreeNode<T>[], children = 'children'): T[] {
+  const result: T[] = []
+  tree.forEach((node) => {
+    result.push(node as T)
+    if (node[children]) {
+      result.push(...flattenList(node[children] as TreeNode<T>[], children))
+    }
+  })
+  return result
+}
+
+export function getUrlParams(url: string) {
+  const params = new URL(url).searchParams
+  const result: Record<string, string> = {}
+  for (const [key, value] of params.entries()) {
+    result[key] = value
+  }
+  return result
+}
+
+export const treeToList = flattenList
+
+export function findNode<T>(
+  arr: T[],
+  callbackfn: (item: T) => boolean,
+  children: keyof T = 'children' as keyof T,
+): T | undefined {
+  for (const item of arr) {
+    if (callbackfn(item)) {
+      return item
+    }
+    const _children = item[children as keyof T]
+    if (Array.isArray(_children)) {
+      const result = findNode(_children, callbackfn, children)
+      if (result) {
+        return result
+      }
+    }
+  }
+  return undefined
+}
+
+export function browserInfo() {
+  const ua = navigator.userAgent
+  const isFirefox = /Firefox/.test(ua)
+  const isIE = /Trident/.test(ua)
+  const isEdge = /Edge/.test(ua)
+  const isOpera = /OPR/.test(ua)
+  const isIOS = /iPhone|iPad|iPod/.test(ua)
+  const isAndroid = /Android/.test(ua)
+  const isMobile = isIOS || isAndroid
+  const isDesktop = !isMobile
+
+  return {
+    isFirefox,
+    isIE,
+    isEdge,
+    isOpera,
+    isIOS,
+    isAndroid,
+    isMobile,
+    isDesktop,
+  }
+}

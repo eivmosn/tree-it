@@ -11,6 +11,7 @@ export default antfu(
           message: 'Use const enums instead',
         },
       ],
+      'ts/ban-ts-comment': 'off',
     },
     gitignore: true,
   },

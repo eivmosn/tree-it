@@ -36,15 +36,17 @@
   "scripts": {
     "test": "vitest",
     "build": "tsup",
+    "dev": "tsx src/storage/index.ts",
     "postinstall": "npx simple-git-hooks",
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.26.0",
-    "eslint": "^9.9.0",
+    "@antfu/eslint-config": "^2.27.3",
+    "eslint": "^9.9.1",
     "nano-staged": "^0.8.0",
     "simple-git-hooks": "^2.11.1",
     "tsup": "^8.2.4",
+    "tsx": "^4.19.0",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
   },
