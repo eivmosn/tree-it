@@ -134,25 +134,27 @@ export function findNode<T>(
   return undefined
 }
 
-export function browserInfo() {
-  const ua = navigator.userAgent
-  const isFirefox = /Firefox/.test(ua)
-  const isIE = /Trident/.test(ua)
-  const isEdge = /Edge/.test(ua)
-  const isOpera = /OPR/.test(ua)
-  const isIOS = /iPhone|iPad|iPod/.test(ua)
-  const isAndroid = /Android/.test(ua)
-  const isMobile = isIOS || isAndroid
-  const isDesktop = !isMobile
-
-  return {
-    isFirefox,
-    isIE,
-    isEdge,
-    isOpera,
-    isIOS,
-    isAndroid,
-    isMobile,
-    isDesktop,
+export function uniq<T>(arr: T[], key: keyof T) {
+  const result: T[] = []
+  const map = new Map()
+  for (const item of arr) {
+    const _key = item[key as keyof T]
+    if (!map.has(_key)) {
+      result.push(item)
+      map.set(_key, true)
+    }
   }
+  return result
+}
+
+export function merge<T extends object>(target: T, source: Partial<T>): T {
+  for (const key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      const value = source[key]
+      if (value !== undefined) {
+        target[key as keyof T] = value
+      }
+    }
+  }
+  return target
 }

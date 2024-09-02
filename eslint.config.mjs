@@ -12,6 +12,7 @@ export default antfu(
         },
       ],
       'ts/ban-ts-comment': 'off',
+      'unicorn/new-for-builtins': 'off',
     },
     gitignore: true,
   },

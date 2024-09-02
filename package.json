@@ -36,12 +36,12 @@
   "scripts": {
     "test": "vitest",
     "build": "tsup",
-    "dev": "tsx src/storage/index.ts",
+    "dev": "tsx src/index.ts",
     "postinstall": "npx simple-git-hooks",
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.27.3",
+    "@antfu/eslint-config": "^3.0.0",
     "eslint": "^9.9.1",
     "nano-staged": "^0.8.0",
     "simple-git-hooks": "^2.11.1",
@@ -49,13 +49,6 @@
     "tsx": "^4.19.0",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "allowAny": [
-        "eslint"
-      ]
-    }
   },
   "simple-git-hooks": {
     "pre-commit": "./node_modules/.bin/nano-staged"
